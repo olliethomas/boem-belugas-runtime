@@ -33,14 +33,14 @@ def main():
             result_images, scores = predict(query_image_id, database_image_ids)
             ##################################
 
-            for pred_image_id, score in zip(result_images, scores):
-                predictions.append(
-                    {
-                        "query_id": query_id,
-                        "database_image_id": pred_image_id,
-                        "score": score,
-                    }
-                )
+            predictions.extend(
+                {
+                    "query_id": query_id,
+                    "database_image_id": pred_image_id,
+                    "score": score,
+                }
+                for pred_image_id, score in zip(result_images, scores)
+            )
 
     predictions_df = pd.DataFrame(predictions)
     predictions_df.to_csv(OUTPUT_FILE, index=False)
