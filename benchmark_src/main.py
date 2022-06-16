@@ -35,8 +35,7 @@ class ImagesDataset(Dataset):
     def __getitem__(self, idx):
         image = Image.open(DATA_DIRECTORY / self.metadata.path.iloc[idx]).convert("RGB")
         image = self.transform(image)
-        sample = {"image_id": self.metadata.index[idx], "image": image}
-        return sample
+        return {"image_id": self.metadata.index[idx], "image": image}
 
     def __len__(self):
         return len(self.metadata)
